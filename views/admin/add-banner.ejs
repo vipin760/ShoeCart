@@ -1,0 +1,89 @@
+<%-include('../layout/aheader.ejs') %>
+    
+        <% if (typeof message !== 'undefined'){%>
+            <div class="alert alert-ligh" role="alert">
+            <p fw=-bold><%=message %></p></div>
+            <%} %>
+     
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-3 card">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center">
+            <div class="bg-dark  border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Add Banners</h6>
+            </div>
+          </div>
+        <form action="/admin/add-banner" class="mt-5" id="banner-form" method="post" enctype="multipart/form-data">
+            <div class="row ">
+                <div class="col">
+                    <input type="text" class="form-control shadow-lg text-center" id="banner-title1" name="bannerTitle1"
+                        placeholder="banner title 1" aria-label="banner title">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control shadow-lg text-center" id="banner-title2" name="bannerTitle2"
+                        placeholder="banner title 2" aria-label="banner title 2">
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col">
+                    <input type="number" class="form-control shadow-lg text-center" id="price" name="price"
+                        placeholder="start price" aria-label="start price">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control shadow-lg text-center" id="bannerthumbnail"
+                       placeholder="banner thumbnail" name="thumbnail" aria-label="banner thumbnail">
+                </div>
+            </div>
+            <div class="col mt-5">
+                <div class="mb-3">
+                    <label for="imageMultiple" class="form-label">Images Upload</label>
+                    <input class="form-control shadow-lg text-center" type="file" id="imageMultiple" name="images" multiple>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6 ms-5">
+                    <input type="submit" class="btn btn-dark" onclick="bannerSubmit()">
+                    <a href="/admin/banner-list" class="btn btn-dark">banners</a>
+                </div>
+            </div>
+            <div class="col mt-5">
+               
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function bannerSubmit() {
+            const formAction = document.querySelector('#banner-form');
+            formAction.addEventListener('submit', event => {
+                event.preventDefault();
+                console.log("working")
+                const bannerTitle1 = document.getElementById('banner-title1').value.trim()
+                const bannerTitle2 = document.getElementById('banner-title2').value.trim();
+                const price = document.getElementById('price').value.trim();
+                const thumnail = document.getElementById('bannerthumbnail').value.trim();
+                const images = document.getElementById('imageMultiple').value
+                console.log("loading")
+                if (!bannerTitle1 || !bannerTitle2 || !price || !images) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong please fill form correctly!',
+        
+                    })
+                } else {
+                    Swal.fire(
+                        'Good job!',
+                        'suucessfully submitted data!',
+                        'success'
+                    )
+                    formAction.submit();
+                }
+
+
+
+            })
+
+        }
+
+    </script>
+    <%-include('../layout/afooter.ejs') %>

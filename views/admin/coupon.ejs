@@ -1,0 +1,193 @@
+
+<%-include('../layout/aheader.ejs')%>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center">
+              <div class="bg-dark  border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Add category</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                <!--user list table start here-->
+               
+              
+              <!-- Main Content -->
+              <div class="container-fluid mt-3">
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <div class="card">
+                              <form action="/admin/create-coupon" id="create-coupon">
+                                <div class="card-header">
+                                  <div class="col-xl-12 mt-5"><input type="text" id="couponCodeName" name="couponCodeName" class="border-white shadow-lg text-center"  placeholder="couponName"></div>
+                                  <div class="col-xl-12"><input type="number" id="discount" name="discount" class="border-white shadow-lg text-center mt-4" placeholder="discount"></div>
+                                 <div class="col-xl-12"><input type="number" id="minPrice" name="minPrice" class="border-white shadow-lg text-center mt-4" placeholder="MinPrice"></div>
+                                <div class="col-xl-12"><input type="number" id="maxPrice" name="maxPrice" class="border-white shadow-lg text-center mt-4" placeholder="Max Price"></div>
+                                  <!-- <div class="col-xl-12"><input type="date" id="expire-date" name="start-date" class="border-white shadow-lg text-center mt-4" placeholder="coupon start date"></div> -->
+                                  <div class="col-xl-12"><input type="Date" id="expire-date" name="endDate" class="border-white shadow-lg text-center mt-4" placeholder="coupon end date"></div>
+                                  
+                                  <div class="col-xl-12"><button class="btn btn bg-gradient-dark mt-4" onclick="createCoupon()">Add coupon</button></div>
+                               
+                                </div>
+                              </form>
+                              <div class="card-body">
+                                  <!-- Insert sales report table here -->
+                              </div>
+                          </div>
+                      </div>
+                    
+                  </div>
+              
+                  <div class="row mt-3">
+                      <div class="col-md-12">
+                          <div class="card">
+                              <div class="card-header">
+                                 <h4>available coupon</h4>
+
+                                <div class="table-responsive p-4">
+                                <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="table-setting">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">DATE</th>
+                                        <th scope="col">DISCOUNT</th>
+                                        <th scope="col">DESCRIPTION</th>
+                                        <th scope="col">STATUS</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                    
+                                        <% couponData.forEach((data,index) => { %>
+                    
+                                          <tr>
+                                            <td class="text-center text-muted"><%= index+1 %></td>
+                                            <td>
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <div class="widget-content-left">
+                                                                <%=data.name  %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-left flex2">                                                         
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                        
+                                           
+                                            <td class="text-center">
+                                                <%= data.expiry.toDateString()%>
+                                                
+                                            </td>
+                                            <td class="text-center">
+                                                <%=data.discount%> %
+                                             
+                                            </td>
+                                            <td>
+                                              good
+                                            </td>
+                                            <td>
+                                                <% if(data.active == true){%>
+                                                    <b>unlist</b>
+                                                    <%}else{%>
+                                                        <b>list</b>
+                                                    <%}%>
+                                            </td>
+                                           
+                                        </tr>
+                                          
+                                      <%  }); %>
+                                        
+                                   
+                                     
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                              </div>
+                              <div class="card-body">
+                                 
+                              </div>
+                          </div>
+                      </div>
+
+                  
+
+                  </div>                
+              </div> 
+                <!--user list table start here-->
+                   </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    function createCoupon(){
+      const createCoupon = document.querySelector('#create-coupon');
+      createCoupon.addEventListener('submit',event=>{
+        event.preventDefault()
+       const couponCodeName = document.getElementById('couponCodeName').value.trim();
+       const discount = document.getElementById('discount').value.trim();
+       const expireDate = document.getElementById('expire-date').value.trim();
+       const minPrice = document.getElementById('minPrice').value.trim();
+       const maxPrice = document.getElementById('maxPrice').value.trim();
+
+       console.log(expireDate)
+       if(!couponCodeName || ! discount || !expireDate){
+        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'fill the form correctly.....!',
+                        // footer: '<a href="">Why do I have this issue?</a>'
+                    })
+       }else{
+        $.ajax({
+          method:"post",
+          url:"/admin/create-coupon",
+          data:({
+            couponCodeName,
+            discount,
+            expireDate,
+            minPrice,
+            maxPrice
+          }),
+          success: function(response){
+            if(response.status){
+              Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Coupon added Successfully',
+                            showConfirmButton: false,
+                            timer: 3000
+                        }),
+                       location.href='/admin/create-coupon'
+            }else{
+
+              Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'make unique card and its name atleast 5 character max 13.....!',
+                        // footer: '<a href="">Why do I have this issue?</a>'
+                    })
+            }
+
+          }
+        })
+       }
+       
+      })
+    }
+  </script>
+
+<%-include('../layout/afooter.ejs') %>
+
+

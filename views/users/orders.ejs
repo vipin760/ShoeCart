@@ -1,0 +1,69 @@
+<%-include('../layout/header.ejs') %>
+
+<div class="col-md-12 p-5"></div>
+<div class="container-fluid mt-5 text-center" >
+  <div class="col-md-12 p-5">
+      <div class="card mb-3 card">
+          <div class="card-header">Active orders
+              <div class="btn-actions-pane-right">
+              </div>
+          </div>
+          <div class="table-responsive p-4">
+            <% if(orderData){%>
+              <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="table-setting">
+                  <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">address</th>
+                    <th scope="col">status</th>
+                    <th scope="col">orderDate</th>
+                    <th scope="col">deliveryDate</th>
+                    <th scope="col">products</th>
+                    <th scope="col">Total Amout</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
+                
+                  <% orderData.forEach((data,index)=> { %>
+                    <tr>
+                      <td class="text-center text-muted"><%= index+1 %></td>
+                      
+                      <td class="text-center"> <%=data.address_id.userName %> <br>
+                        <%=data.address_id.mobile%><br>
+                        <%=data.address_id.address %><br>
+                        <%= data.address_id.state %><br>
+                        <%= data.address_id.pincode %><br></td>
+                        <td class="text-center"><%= data.status %></td>
+                        <td class="text-center"><%= data.orderDate.toDateString()%></td>
+                        <td class="text-center"><div class="text-center"><%= data.deliveryDate.toDateString() %></div></td>
+                        <td class="text-end">
+                          <a href="/view-products?id=<%= data._id %>" class="btn btn-dark">view products</a>
+                         </td>
+                         <td><b class="bold text-dark"><%= data.totalPrice %></b></td>
+                        
+                      
+                  </tr>
+                    
+                <%  }); %>
+                
+                      
+                  </tbody>
+              </table>
+              <%}else{%>
+
+                <h1>order is empty</h1>
+                <%}%>
+          </div>
+      </div>
+  </div>
+  </div>
+<%-include('../layout/footer.ejs') %>
+
+
+
+
+
+
+
+

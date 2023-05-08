@@ -1,0 +1,47 @@
+<%- include('../layout/header.ejs') %>
+<!-- <div class="mt-5 p-5"></div>
+
+<div class="container col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-5">
+  <div class="row">
+   <% productData.products.forEach(data => { %>
+    
+    <h1><%= data.product_id.productName %></h1>
+    
+  <% }); %>
+  </div>
+</div> -->
+<div class="mt-5 p-5"></div>
+
+<div class="container col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-5">
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <td>image</td>
+          <td>name</td>
+          <td>price</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+          <% if(productData){  %>
+            <% productData.products.forEach(data => {  %>
+              <tr class="">
+                <td><a href="/single-product?id=<%=data.product_id._id%>"><img src="/images/<%= data.product_id.images[0] %>" alt="" style="height: 5rem; width: 5rem;"></a></td>
+                <td><%= data.product_id.productName%></td>
+                <td><%= data.product_id.salePrice %></td>
+                <td><div class="text-center"><a href="/add-cart?id=<%= data.product_id._id %>" class="btn btn-primary"
+                  style="width: 8rem;">Add Cart</a></div></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <p>No items in wishlist.</p>
+          <% } %>
+          
+          
+       
+      </tbody>
+    </table>
+  </div>
+</div>
+<%- include('../layout/footer.ejs') %>

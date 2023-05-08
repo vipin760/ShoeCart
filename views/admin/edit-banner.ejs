@@ -1,0 +1,78 @@
+<%-include('../layout/aheader.ejs') %>
+    <div class="col-xl-12 p-4">
+        <h4>Edit Banner</h4>
+    </div>
+    <% if(bannerData){%>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <form action="/admin/edit-banner" id="banner-form" method="post" enctype="multipart/form-data">
+                <div class="row ">
+                    <div class="col">
+                        <input type="text" class="form-control bg-white text-center" id="banner-title1" name="bannerTitle1" value="<%= bannerData.bannerTitle1%>"
+                            placeholder="banner title 1" aria-label="banner title">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control bg-white text-center" id="banner-title2" name="bannerTitle2" value="<%= bannerData.bannerTitle2 %>"
+                            placeholder="banner title 2" aria-label="banner title 2">
+                    </div>
+                </div>
+    
+                <div class="row mt-5">
+                    <div class="col">
+                        <input type="number" class="form-control bg-white text-center" id="price" name="price" value="<%= bannerData.price %>"
+                            placeholder="start price" aria-label="start price">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control bg-white text-center" id="bannerthumbnail" value="<%= bannerData.thumbnail %>"
+                            name="bannerthumbnail" placeholder="banner thumbnail" name="thumbnail" aria-label="banner thumbnail">
+                    </div>
+                </div>
+                <div class="col mt-5">
+                    <div class="mb-3">
+                        <label for="imageMultiple" class="form-label"></label>
+                        <img src="/images/<%=bannerData.images[0] %>" alt="" style="height: 5rem; width: 5rem;">
+                        <input class="form-control bg-light" type="file" id="imageMultiple" name="images" multiple>
+                    </div>
+                </div>
+                <div class="col mt-5">
+                    <input type="hidden" name="bannerId" value="<%=bannerData._id%>">
+                    <input type="submit" class="btn btn-primary" onclick="bannerSubmit()">
+                </div>
+            </form>
+        </div>
+        <% } %>
+    <script>
+        function bannerSubmit() {
+            const formAction = document.querySelector('#banner-form');
+            formAction.addEventListener('submit', event => {
+                event.preventDefault();
+                console.log("working")
+                const bannerTitle1 = document.getElementById('banner-title1').value.trim()
+                const bannerTitle2 = document.getElementById('banner-title2').value.trim();
+                const price = document.getElementById('price').value.trim();
+                const thumnail = document.getElementById('bannerthumbnail').value.trim();
+                const images = document.getElementById('imageMultiple').value
+                console.log("loading")
+                if (!bannerTitle1 || !bannerTitle2 || !price) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong please fill form correctly!',
+        
+                    })
+                } else {
+                    Swal.fire(
+                        'Good job!',
+                        'suucessfully submitted data!',
+                        'success'
+                    )
+                    formAction.submit();
+                }
+
+
+
+            })
+
+        }
+
+    </script>
+    <%-include('../layout/afooter.ejs') %>

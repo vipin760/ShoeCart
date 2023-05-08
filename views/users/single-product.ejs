@@ -1,0 +1,125 @@
+<%-include('../layout/header.ejs') %>
+  <style>
+    body{background-color: #f3e9e9}.card{border:none}.product{background-color: #eee}.brand{font-size: 13px}.act-price{color:red;font-weight: 700}.dis-price{text-decoration: line-through}.about{font-size: 14px}.color{margin-bottom:10px}label.radio{cursor: pointer}label.radio input{position: absolute;top: 0;left: 0;visibility: hidden;pointer-events: none}label.radio span{padding: 2px 9px;border: 2px solid #ff0000;display: inline-block;color: #ff0000;border-radius: 3px;text-transform: uppercase}label.radio input:checked+span{border-color: #ff0000;background-color: #ff0000;color: #fff}.btn-danger{background-color: #ff0000 !important;border-color: #ff0000 !important}.btn-danger:hover{background-color: #da0606 !important;border-color: #da0606 !important}.btn-danger:focus{box-shadow: none}
+  </style>
+  <div class="row mt-5 p-5" ></div>
+  <div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <% productData.forEach((data,index) => {%>
+                                <div class=""><% if(user){ %>
+                                    <a href="" type="submit" id="<%= data._id %>" onclick="addWishlist('<%= data._id %>')">
+                                        <i class="bi bi-heart mt-3 ms-3 fs-4" style="color: black;"></i>
+                                    </a>
+                                <% } %></div>
+                                <div class="text-center p-4"> 
+                                    <img id="main-image" class="" src="/images/<%=data.images[0] %>" data-zoom-image="/images/<%=data.images[0] %>" width="250" />
+                                   
+                                 </div>
+                            <div class="thumbnail text-center">
+                                 <img onclick="change_image(this)" src="/images/<%=data.images[0]%>" width="70">
+                                 <img onclick="change_image(this)" src="/images/<%=data.images[1]%>" width="70">
+                                 <img onclick="change_image(this)" src="/images/<%=data.images[2]%>" width="70">
+                                 <img onclick="change_image(this)" src="/images/<%=data.images[3]%>" width="70">
+                                 
+                                
+                                </div>
+
+                           <% }); %>
+                                                </div>
+                    </div>
+                    <% productData.forEach(data => {%>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center"> <span class="ml-1"></span> </div>
+                            </div>
+                            <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">product details</span>
+                                <h5 class="text-uppercase"><%= data.productName %></h5>
+                                <div class="price d-flex flex-row align-items-center"> <span class="act-price">₹<%=data.salePrice%></span>
+                                    <div class="ml-2"> <small class="dis-price">₹<%=data.price%></small> <span><%= data.discount %>% OFF</span> </div>
+                                </div>
+                            </div>
+                            <p class="about"><%= data.description %></p>
+                            <div class="sizes mt-5">
+                                <h6 class="text-uppercase">Size</h6> <label class="radio"> <input type="radio" name="size" value="S" checked> <span>S</span> </label> <label class="radio"> <input type="radio" name="size" value="M"> <span>M</span> </label> <label class="radio"> <input type="radio" name="size" value="L"> <span>L</span> </label> <label class="radio"> <input type="radio" name="size" value="XL"> <span>XL</span> </label> <label class="radio"> <input type="radio" name="size" value="XXL"> <span>XXL</span> </label>
+                            </div>
+                            <div class="cart mt-4 align-items-center"> <a href="/add-cart?id=<%= data._id %>" class="btn btn-danger text-uppercase mr-2 px-4">add to cart</a></div>
+                        </div>
+                    </div>
+                   <%})%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function change_image(image){
+
+var container = document.getElementById("main-image");
+
+container.src = image.src;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+
+
+
+
+
+
+});
+</script>
+<script>
+   window.onload = function() {
+    $("#main-image").elevateZoom();
+};
+;
+</script>
+
+<script>
+
+
+    function addWishlist(product) {
+        $.ajax({
+            url: '/add-to-wishList',
+            method: 'post',
+            data: {
+                product
+            },
+            success: function (response) {
+                if (response.status) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'product add to wishlist',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    //	$('a#' + product + ' i').removeClass('bi-heart-fill').addClass('bi-heart');
+                } else {
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'product remove from wishlist',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    //	$('a#' + product + ' i').removeClass('bi-heart').addClass('bi-heart-fill');
+                }
+
+            }
+        })
+
+
+    }
+</script>           
+    <%- include('../layout/footer.ejs') %>

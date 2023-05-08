@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     
+	<title>ShoeCart</title>
+</head>
+
+<body>
+
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>ShoeCart</title>
+
+	<!--bootstrap icon cdn link-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+	<!--user home page style links-->
+	<link rel="stylesheet" href="/users/home/css/linearicons.css">
+	<link rel="stylesheet" href="/users/home/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/users/home/css/themify-icons.css">
+	<link rel="stylesheet" href="/users/home/css/bootstrap.css">
+	<link rel="stylesheet" href="/users/home/css/owl.carousel.css">
+	<link rel="stylesheet" href="/users/home/css/nice-select.css">
+	<link rel="stylesheet" href="/users/home/css/nouislider.min.css">
+	<link rel="stylesheet" href="/users/home/css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="/users/home/css/ion.rangeSlider.skinFlat.css" />
+	<link rel="stylesheet" href="/users/home/css/magnific-popup.css">
+	<link rel="stylesheet" href="/users/home/css/main.css">
+	<link rel="stylesheet" href="/users/home/css/productArea.css">
+
+
+	<!--user profile css-->
+	<!-- <link rel="stylesheet" href="/users/profile/style.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+	<!--sweet alert link-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"> </script>
+	<!--sweet aler link end-->
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!--razorpay payment-->
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<!--razorpay payment end-->
+
+	<!--ajax search button link-->
+
+
+
+	<!--ajax search button link end-->
+	<!--images zoom jquery-->
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!--images zoom jquery end-->
+	<!--product view -->
+    <link rel="stylesheet" href="/users/home/css/product-view.css">
+	<!--end product view-->
+
+	<!--login page-->
+	<link rel="stylesheet" href="/public/users/login/style.css">
+	<!--login pages end-->
+
+	</head>
+
+	<body>
+
+		<!-- Start Header Area -->
+		<header class="header_area sticky-header">
+			<div class="main_menu">
+				<nav class="row navbar navbar-expand-lg navbar-light main_box ">
+
+
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="col-md-3 text-end m-3">
+						<a class="navbar-brand logo_h pr-5 me-5" href="/"><img src="/img/logo/—Pngtree—modern sneaker shoe logo_5491764.png" alt="" style="height: 4rem; width: 4rem;"><b class="text-dark">ShoeCart</b></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse"
+							data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon pl-5"></span>
+							
+						</button>
+					</div>
+					<div class="col-md-4">
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset col-md-5" id="navbarSupportedContent">
+
+
+
+						<ul class="text-center mt-3">
+							<li class="nav-item">
+								<%if(user){%>
+									<a class="nav-link text-dark" href="/my-orders">Orders</a>
+									<%}%>
+
+							</li>
+							
+						</ul>
+						
+
+						<ul class="nav navbar-nav menu_nav text-center">
+								<li class=" nav-item submenu dropdown active">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false"><i
+										class="bi bi-person-fill-add text-dark">category</i></a>
+								<ul class="dropdown-menu">
+									
+									<% category.forEach(data => { %>
+										<li class="nav-item">
+											<a class="nav-link" href="/men-category?id=<%=data._id%>"><%= data.name %></a>
+										</li>
+								<%	}); %>
+									<!-- <li class="nav-item ">
+										<a class="nav-link" href="/women-category?type=WOMEN">Women</a>
+									</li>
+									<li class="nav-item ">
+										<a class="nav-link" href="/kids-category?type=KIDS">Kids</a>
+									</li> -->
+
+								</ul>
+							</li>
+							
+
+
+
+						</ul>
+					
+
+
+					
+						<ul>
+							<li class="nav-item ms-4 text-center">
+								<%if(user){%>
+									<a href="/view-wishlist" style="width: 50px;">
+										<i
+										class=" text-dark"></i>
+										<p class="text-dark text-decoration-none mt-4">wishlist</p>
+									</a>
+									<%}else{%>
+										<a href="/login" style="width: 50px;">
+											<i
+										class=" text-dark"></i>
+											<p class="text-dark text-decoration-none mt-4">wishlist</p>
+										</a>
+										<%}%>
+							</li>
+
+						</ul>
+						<ul>
+							<li class="nav-item ms-4 text-center"><a href="/cart" class="cart"><i
+										class=" text-dark"></i>
+									<p class="text-dark text-decoration-none mt-4">cart</p>
+								</a></li>
+						</ul>
+
+						<ul>
+							<li class="nav-item ms-4 text-dark">
+								<%if(user){%>
+									<a class="nav-link text-center" href="/user-profile"><i
+											class="bi bi-person text-dark"></i>
+										<p class="text-dark text-decoration-none">profile</p>
+									</a>
+									<%}else{%>
+										<a class="nav-link text-center mt-4" href="/login"><i
+												class=" text-dark"></i>
+											<p class="text-dark text-decoration-none">login</p>
+										</a>
+										<%}%>
+							</li>
+
+						</ul>
+
+					</div>
+
+
+
+
+
+
+
+
+				</nav>
+			</div>
+
+		</header>
+		<!-- End Header Area -->
+
+
+
+
+
+
+
+
+
+		<!--wishlist-->
+
+		<!-- <ul>
+			<%if(user){%>
+				<a href="/view-wishlist" style="width: 50px;"><svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+						<path
+							d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+					</svg></a>
+				<%}else{%>
+					<a href="/login" style="width: 50px;"><svg xmlns="http://www.w3.org/2000/svg"
+							width="16" height="16" fill="currentColor" class="bi bi-heart"
+							viewBox="0 0 16 16">
+							<path
+								d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+						</svg></a>
+					<%}%>
+
+		</ul> -->
+
+		<!--wishlist end here-->
+
+
+
+		<!--login logout-->
+		<!-- 
+
+		<%if(user){%>
+			<li class="nav-item"><a class="nav-link btn p-2" href="/logout">Logout</a></li>
+			<%}else{%>
+				<li class="nav-item"><a class="nav-link btn p-2" href="/login">Login</a></li>
+				<%}%> -->
+
+		<!--login logout end-->
+		<!--user profile-->
+		<!-- <ul>
+	<%if(user){%>
+		<li class="nav navbar-nav navbar-right ms-5 rounded-circle"><a class="nav-link"
+				href="/user-profile"><i class="bi bi-person text-dark">Profile</i></a></li>
+		<%}%>
+</ul> -->
+		<!--user profile end-->
+
+
+
+		<!--orders-->
+		<!-- <ul>
+	<%if(user){%>
+		<li class="nav-item"><a class="nav-link" href="/my-orders">Orders</a></li>
+		<%}%>
+</ul>
+<ul>
+	<li class="nav-item ms-4 me-4"><a href="/cart" class="cart"><i
+				class="bi bi-cart4"></i></a></li>
+</ul> -->
+		<!--orders end-->
+
+
+		<!--drop down page-->
+		<!-- <ul class="nav navbar-nav menu_nav ml-auto">
+								
+								
+	<li class="nav-item submenu dropdown active">
+		<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+			aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-fill-add"></i></a>
+			<ul class="dropdown-menu">
+			<li class="nav-item">
+				<a class="nav-link" href="/men-category?id=">Men</a></li>
+			<li class="nav-item ">
+				<a class="nav-link"
+					href="/women-category?type=WOMEN">Women</a></li>
+			<li class="nav-item ">
+				<a class="nav-link"
+					href="/kids-category?type=KIDS">Kids</a></li>
+		</ul>
+		</li>
+
+
+
+</ul> -->
+		<!--drop down page end-->

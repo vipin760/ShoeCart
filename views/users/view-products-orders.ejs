@@ -1,0 +1,83 @@
+<%- include('../layout/header.ejs') %>
+    <div class="container col-lg-12">
+        <div class="p-5">
+            <div class="row p-5 mt-5">
+                <h1>Order List List</h1>
+
+
+
+                 <div class="container bg-light p-4 shadow-lg col-lg-4">
+                    <% if (orderData){%>
+                        <% orderData.products.forEach(data=> { %>
+                    <div class="row">
+                       
+                       
+
+                            <tr class="mt-3">
+                                <td class="p-3">
+                                    <div class="col-lg-6">
+                                       <a href="/single-product?id=<%=data.product_id._id %>"> <img src="/images/<%=data.product_id.images[0] %>" style="width: 5rem; height: 5rem;"></a>
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <%= data.product_id.productName %>
+                                        <span class="d-block">quantity:<%=data.quantity %></span>
+                                        <span>Price: <%=data.price %></span>
+                                        <span class="font-weight-bold">
+                                           <h6><b class="text-dark">TotalPrice:</b> <%=data.totalPrice %></h6>
+                                        </span>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            
+                    </div>
+                    <hr>
+                   
+                       
+                            <% }); %>
+                            <div class="row">
+                                <div class="col-md-6 text-warning"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></div>
+                                <% if(orderData.status==='cancel'){%>
+                                    <div class="col-md-6 "><a href="" class="btn btn-dark">order cancelled</a></div>
+
+                                    <%}else if(orderData.status === 'delivered'){%> 
+                                        <div class="col-md-6 "><a href="" class="btn btn-dark">order delivered</a></div>
+                                        <%}else{%>
+                                        <div class="col-md-6 "><a href="" class="btn btn-dark" onclick="orderCancel('<%=orderData._id%>')">order cancel</a></div>
+                                        <%} %>
+                            </div>
+                            <%} %>
+                   
+                </div> 
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function orderCancel(id){
+             event.preventDefault()
+             console.log(id)
+             $.ajax({
+                method:'patch',
+                url:'/order-cancel',
+                data:({
+                    id
+                }),
+                success : function (response){
+                    if(response.status){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'order cancelled',
+                            title: 'order cancelled successfully',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }
+                }
+
+             })
+        }
+    </script>
+    <%- include('../layout/footer.ejs') %>

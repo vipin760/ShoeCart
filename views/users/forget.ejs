@@ -1,0 +1,19 @@
+<%- include('../layout/header.ejs') %>
+
+
+<h1>forget password</h1>
+<form action="/forget" method="post">
+    <div>
+        <input type="email" name="email" placeholder="example@gmail.com">
+        <input type="text" name="cpassword" placeholder="password">
+        <input type="submit" value="butoon">
+    
+    
+    </div>
+    
+</form><% if(typeof message!=='undefined'){%>
+
+<p><%= message %></p>
+    <%} %>
+
+<%- include('../layout/header.ejs') %>

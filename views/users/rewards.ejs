@@ -1,0 +1,47 @@
+<%-include('../layout/header.ejs') %>
+
+    <div class="col-md-12 p-5 mt-5"></div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 text-center">
+            <%if(coupon){%>
+                <% coupon.forEach(data => { %>
+                    <div class="card col-md-3 bg-warning">
+                        <p class="mt-3 fw-bold">claim now</p><hr>
+                        <div class="col-md-12 p-5"><i class="bi bi-gift-fill"></i></div>
+                        <p class="fw-bold">coupon: <input type="text" class="text-center" value="<%= data.name %>"></p><hr>
+                        <p>valid till <%= data.expiry.toDateString() %></p>
+                      </div>
+                <% }); %>
+                <%}else{%>
+                    <div class="card col-md-3 bg-info">
+                        <p class="mt-3">no coupon availabe</p><hr>
+                        <div class="col-md-12 p-5"></div>
+                        <p class="fw-bold"></p>
+                        <p></p>
+                      </div>
+                    
+                    <%}%>
+
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-5">
+        <div class="row">
+           <% usedCoupon.forEach(data => { %>
+            <div class="card col-md-2 text-center round-pill bg-info">
+                <p class="mt-3 fw-bold">earned</p><hr>
+                <div class="col-md-12 p-5"><i class="bi bi-emoji-frown"></i><i class="bi bi-gift-fill"></i></div>
+                <p class="fw-bold">coupon: <input type="text" class="text-center" value="<%= data.name %>"></p><hr>
+                <p>expired: <%= data.expiry.toDateString() %></p>
+            </div>
+            
+          <% }); %> 
+           
+        
+        </div>
+    </div>
+    <%-include('../layout/footer.ejs') %>
