@@ -36,7 +36,7 @@ const loadCheckout = async (req, res) => {
             const cartData = await Cart.findOne({ user_id: userId }).populate('products.product_id');
             const subTotalPrice = cartData ? cartData.products.reduce((acc, cur) => acc + cur.totalPrice, 0) : 0;
             const wallet = await Wallet.findOne({ user_id: userId })
-            res.render('place-order', { user, address, cartData, subTotalPrice, totalQuantity, userId, wallet ,category });
+            res.render('place-order', { user, address, cartData, subTotalPrice, totalQuantity, userId, wallet, category });
         } else {
             res.redirect('/');
         }
@@ -90,7 +90,8 @@ const applyCoupon = async (req, res) => {
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const placedOrder = async (req, res) => {
     try {
         const user = req.session.isLoggedIn;
@@ -161,11 +162,11 @@ const placedOrder = async (req, res) => {
                                                 const couponData = await Coupon.updateOne({ name: req.body.CouponName }, { $set: { status: 'false' } });
                                             }
                                         })
-                                    }else if (req.body.selector==='wallet'){
-                                         const walletAmount = await Wallet.findOne({user_id:userId});
-                                         if(walletAmount.amount < subTotalPrice){
-                                            res.json({msg:'wallet amount is less your purachase product'});
-                                         }else{
+                                    } else if (req.body.selector === 'wallet') {
+                                        const walletAmount = await Wallet.findOne({ user_id: userId });
+                                        if (walletAmount.amount < subTotalPrice) {
+                                            res.json({ msg: 'wallet amount is less your purachase product' });
+                                        } else {
                                             const orderId = response._id;
                                             await Order.updateOne({ user_id: userId, _id: orderId }, { $set: { status: 'success', orderstatus: 'confirm', paymentStatus: 'success' } }).then(() => {
                                             }).then(() => {
@@ -188,19 +189,19 @@ const placedOrder = async (req, res) => {
                                                 }
                                             }).then(async () => {
                                                 if (req.body.CouponName) {
-    
+
                                                     const couponData = await Coupon.updateOne({ name: req.body.CouponName }, { $set: { status: 'false' } });
                                                 }
-                                            }).then(async()=>{
-                                               const walletAmount = await Wallet.findOne({user_id:userId});
-                                               const updateAmount = walletAmount.amount-subTotalPrice;
-                                              await Wallet.updateOne({user_id:userId},{$set:{amount:updateAmount}})
+                                            }).then(async () => {
+                                                const walletAmount = await Wallet.findOne({ user_id: userId });
+                                                const updateAmount = walletAmount.amount - subTotalPrice;
+                                                await Wallet.updateOne({ user_id: userId }, { $set: { amount: updateAmount } })
                                             })
-                                            
-                                         }
+
+                                        }
 
                                     }
-                                     else {
+                                    else {
 
 
 
@@ -340,7 +341,7 @@ const thanksPage = async (req, res) => {
             const addressId = orderData.address_id;
             const addresses = await Address.find();
             const addressData = addresses.find((value) => value._id.toString() == addressId);
-            res.render('thanks-page', { user, orderData, addressData , category });
+            res.render('thanks-page', { user, orderData, addressData, category });
         } else {
             res.redirect('/')
         }
@@ -369,9 +370,9 @@ const orderList = async (req, res) => {
                 const userData = users.find((val) => val._id.toString() == userId);
                 const addressess = await Address.find();
                 const addressData = addressess.find(val => val._id.toString() == addressId);
-                res.render('orders', { user, orderData: orderData, userData, addressData , category });
+                res.render('orders', { user, orderData: orderData, userData, addressData, category });
             } else {
-                res.render('orders', { user, orderData: '',category });
+                res.render('orders', { user, orderData: '', category });
             }
 
         } else {
@@ -396,7 +397,7 @@ const viewProducts = async (req, res) => {
             const totalPrice = orderData.totalPrice;
             const totalQuantity = orderData.quantity;
 
-            res.render('view-products-orders', { user, orderData, totalPrice, totalQuantity ,category });
+            res.render('view-products-orders', { user, orderData, totalPrice, totalQuantity, category });
 
         } else {
             res.redirect('/');
@@ -415,7 +416,7 @@ const loadOrderManagement = async (req, res) => {
         const admin = req.session.isAdminLoggedIn;
         const successOrders = await Order.find({ orderstatus: 'confirm' }).populate('address_id')
         const addressData = await Order.find({ orderstatus: 'confirm' }).populate('address_id');
-        console.log("addressData.................................................",successOrders );
+        console.log("addressData.................................................", successOrders);
         res.render('order-management', { successOrders: successOrders.reverse(), addressData });
     } catch (error) {
         console.log(error.message);
@@ -492,7 +493,7 @@ const loadSalesreport = async (req, res) => {
     try {
         const orderData = await Order.find({ status: "delivered" }).populate('address_id').populate('user_id')
         console.log(orderData)
-        res.render('sales-report', { orderData :orderData.reverse() })
+        res.render('sales-report', { orderData: orderData.reverse() })
 
     } catch (error) {
         res.render('error');

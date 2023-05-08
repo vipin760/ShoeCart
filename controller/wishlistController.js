@@ -1,6 +1,6 @@
 const Wishlist = require('../models/wishlistModel.js');
 const Product = require('../models/productModel.js');
-const addToWishlist = async(req,res) => {
+const addToWishlistcopy = async(req,res) => {
     try {
         const productId = req.body;
         const user = req.session.isLoggedIn;
@@ -46,4 +46,6 @@ const addToWishlist = async(req,res) => {
 
 
 
-
+module.exports={
+    addToWishlistcopy
+}

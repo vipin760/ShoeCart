@@ -3,6 +3,8 @@ const User = require('../models/userModel');
 const Wallet = require('../models/walletModel');
 const Coupon = require('../models/couponModel');
 const Category = require('../models/categoryModel')
+ 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const loadUserProfile = async (req, res) => {
     try {
@@ -35,6 +37,7 @@ const loadUserProfile = async (req, res) => {
         res.render('error');
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const loadReward = async(req,res) =>{
@@ -69,6 +72,7 @@ const addressForm = async (req, res) => {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const insertAddress = async (req, res) => {
     try {
